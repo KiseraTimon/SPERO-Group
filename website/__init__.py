@@ -82,4 +82,11 @@ def create_app(FLASK_MODE: str | None = None):
     def loadUser(id: int):
         return None
 
-    return app
+    try:
+        return app
+
+    except Exception as e:
+        errhandler(e, log="__init__", path="server")
+
+    else:
+        syshandler(F"App Initializer Triggered with Debug Mode: {app.config.get("DEBUG")}", log="__init__", path="server")
