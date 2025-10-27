@@ -69,6 +69,14 @@ def create_app(FLASK_MODE: str | None = None):
 
     loginManager.init_app(app)
 
+    # Importing Blueprints
+    from website.modules.authentication.auth import auth
+    from website.modules.routing.pages import pages
+
+    # Registering Blueprints
+    app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(pages, url_prefix="/")
+
     # User Loader
     @loginManager.user_loader
     def loadUser(id: int):
